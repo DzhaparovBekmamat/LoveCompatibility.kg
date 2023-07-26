@@ -1,12 +1,15 @@
 package com.template.lovecompatibilitykg.retrofit
 
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
 /**
  * Author: Dzhaparov Bekmamat
  */
 
 data class LoveModel(
-    var fname: String,
-    var sname: String,
+    @SerializedName("fname") var firstName: String,
+    @SerializedName("sname") var secondName: String,
     var percentage: String,
     var result: String,
-)
+) : Serializable

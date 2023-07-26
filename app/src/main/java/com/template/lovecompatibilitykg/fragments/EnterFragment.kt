@@ -5,38 +5,53 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.template.lovecompatibilitykg.R
 import com.template.lovecompatibilitykg.databinding.FragmentEnterBinding
+import com.template.lovecompatibilitykg.mvvm.LoveViewModel
 
 class EnterFragment : Fragment() {
-    private lateinit var binding: FragmentEnterBinding
+    private var _binding: FragmentEnterBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: LoveViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentEnterBinding.inflate(inflater, container, false)
+        _binding = FragmentEnterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        send()
+        initializeClicker()
     }
 
-    private fun send() {
+    private fun initializeClicker() {
         with(binding) {
             button.setOnClickListener {
-                val fname = editTextFname.text.toString()
-                val sname = editTextSname.text.toString()
-                val bundle = Bundle()
-                bundle.putString(
-                    "fname", fname
-                )
-                bundle.putString(
-                    "sname", sname
-                )
-                findNavController().navigate(R.id.resultFragment, bundle)
+                viewModel.getLiveData(editTextFname.text.toString(), editTextSname.text.toString())
+                    .observe(this@EnterFragment) { loveModel ->
+                        findNavController().navigate(
+                            R.id.resultFragment, bundleOf(KEY to loveModel)
+                        )
+                    }
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        const val KEY = "LoveModel.key"
+    }
 }
+
+
+
+

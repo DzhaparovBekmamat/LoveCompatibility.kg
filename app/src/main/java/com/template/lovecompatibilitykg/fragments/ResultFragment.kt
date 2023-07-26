@@ -7,49 +7,49 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.template.lovecompatibilitykg.R
 import com.template.lovecompatibilitykg.databinding.FragmentResultBinding
+import com.template.lovecompatibilitykg.mvvm.LoveViewModel
 import com.template.lovecompatibilitykg.retrofit.LoveModel
-import com.template.lovecompatibilitykg.retrofit.RetrofitService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
+@Suppress("DEPRECATION")
 class ResultFragment : Fragment() {
-    private lateinit var binding: FragmentResultBinding
+    private var _binding: FragmentResultBinding? = null
+    private val binding get() = _binding!!
+    private var loveModel: LoveModel? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentResultBinding.inflate(inflater, container, false)
+        _binding = FragmentResultBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initClicker()
+        loveModel = arguments?.getSerializable(EnterFragment.KEY) as LoveModel
+        initializeTextView()
+        initializeClickers()
     }
 
-    private fun initClicker() {
-        if (arguments != null) {
-            with(binding) {
-                textView1.text = arguments!!.getString("fname")
-                textView2.text = arguments!!.getString("sname")
-                RetrofitService().api.getPercentage(
-                    textView1.text.toString(), textView2.text.toString()
-                ).enqueue(object : Callback<LoveModel> {
-                    override fun onResponse(call: Call<LoveModel>, response: Response<LoveModel>) {
-                        result.text = response.body()!!.percentage
-                    }
-
-                    @SuppressLint("SetTextI18n")
-                    override fun onFailure(call: Call<LoveModel>, t: Throwable) {
-                        result.text = "Error: ${t.message}"
-                    }
-                })
-                buttonBack.setOnClickListener {
-                    findNavController().navigate(R.id.enterFragment)
-                }
+    private fun initializeClickers() {
+        with(binding) {
+            buttonBack.setOnClickListener {
+                findNavController().navigateUp()
             }
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initializeTextView() {
+        with(binding) {
+            textView1.text = loveModel?.firstName.toString()
+            textView2.text = loveModel?.secondName.toString()
+            result.text = loveModel?.percentage.toString() + "%"
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
