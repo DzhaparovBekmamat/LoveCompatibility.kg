@@ -6,7 +6,6 @@ import java.io.Serializable
 /**
  * Author: Dzhaparov Bekmamat
  */
-
 data class LoveModel(
     @SerializedName("fname") var firstName: String,
     @SerializedName("sname") var secondName: String,

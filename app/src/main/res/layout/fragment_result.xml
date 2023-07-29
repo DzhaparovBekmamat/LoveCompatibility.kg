@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="#ffb8c6"
     tools:context=".fragments.ResultFragment">
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="250dp"

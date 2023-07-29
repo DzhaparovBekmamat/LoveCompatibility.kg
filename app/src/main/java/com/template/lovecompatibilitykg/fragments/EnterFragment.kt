@@ -11,8 +11,14 @@ import androidx.navigation.fragment.findNavController
 import com.template.lovecompatibilitykg.R
 import com.template.lovecompatibilitykg.databinding.FragmentEnterBinding
 import com.template.lovecompatibilitykg.mvvm.LoveViewModel
+import com.template.lovecompatibilitykg.sharedPreferences.utils.Preferences
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class EnterFragment : Fragment() {
+    @Inject
+    lateinit var preferences: Preferences
     private var _binding: FragmentEnterBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LoveViewModel by viewModels()
@@ -27,6 +33,9 @@ class EnterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeClicker()
+        if (!preferences.isBoardShow()) {
+            findNavController().navigate(R.id.onBoardFragment)
+        }
     }
 
     private fun initializeClicker() {
@@ -48,7 +57,7 @@ class EnterFragment : Fragment() {
     }
 
     companion object {
-        const val KEY = "LoveModel.key"
+        const val KEY = "LoveModel"
     }
 }
 

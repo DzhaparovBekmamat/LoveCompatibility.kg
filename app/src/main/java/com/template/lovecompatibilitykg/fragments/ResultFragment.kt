@@ -8,9 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.template.lovecompatibilitykg.databinding.FragmentResultBinding
-import com.template.lovecompatibilitykg.mvvm.LoveViewModel
 import com.template.lovecompatibilitykg.retrofit.LoveModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 @Suppress("DEPRECATION")
 class ResultFragment : Fragment() {
     private var _binding: FragmentResultBinding? = null

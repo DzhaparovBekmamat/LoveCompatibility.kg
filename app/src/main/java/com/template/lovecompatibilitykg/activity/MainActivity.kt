@@ -1,16 +1,20 @@
 package com.template.lovecompatibilitykg.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.template.lovecompatibilitykg.mvvm.LoveViewModel
 import com.template.lovecompatibilitykg.R
+import com.template.lovecompatibilitykg.sharedPreferences.utils.Preferences
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    @Inject
+    lateinit var preferences: Preferences
     private lateinit var navController: NavController
-    private val viewModel: LoveViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
