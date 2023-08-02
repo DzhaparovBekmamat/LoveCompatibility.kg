@@ -23,15 +23,19 @@
         android:id="@+id/title_item_board"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto" />
+        android:fontFamily="@font/roboto"
+        app:layout_constraintEnd_toEndOf="@id/lottieAnimation"
+        app:layout_constraintStart_toStartOf="@id/lottieAnimation" />
 
     <TextView
         android:id="@+id/description_item_board"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
         android:fontFamily="@font/roboto"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintEnd_toEndOf="@id/lottieAnimation"
+        app:layout_constraintStart_toStartOf="@id/lottieAnimation" />
 
     <Button
         android:id="@+id/button_item_board"

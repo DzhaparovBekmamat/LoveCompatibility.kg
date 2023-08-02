@@ -31,6 +31,9 @@ class ResultFragment : Fragment() {
         initializeTextView()
         initializeClickers()
     }
+    // В методе onViewCreated происходит инициализация фрагмента после создания его представления.
+    // Здесь происходит получение данных LoveModel из аргументов, переданных из предыдущего
+    // фрагмента EnterFragment, и вызов методов initializeTextView() и initializeClickers().
 
     private fun initializeClickers() {
         with(binding) {
@@ -40,6 +43,8 @@ class ResultFragment : Fragment() {
         }
     }
 
+    // Метод initializeClickers() устанавливает обработчик нажатия на кнопку buttonBack,
+// который осуществляет навигацию назад.
     @SuppressLint("SetTextI18n")
     private fun initializeTextView() {
         with(binding) {
@@ -48,6 +53,8 @@ class ResultFragment : Fragment() {
             result.text = loveModel?.percentage.toString() + "%"
         }
     }
+    // Метод initializeTextView() устанавливает текстовые значения в соответствующие TextView
+    // на основе данных из LoveModel.
 
     override fun onDestroyView() {
         super.onDestroyView()

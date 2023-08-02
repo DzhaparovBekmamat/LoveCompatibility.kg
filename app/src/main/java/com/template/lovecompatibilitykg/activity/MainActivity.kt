@@ -11,9 +11,13 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    // В этом классе используется внедрение зависимостей (dependency injection) для получения экземпляра
+    // Preferences с помощью аннотации @Inject.
     @Inject
     lateinit var preferences: Preferences
     private lateinit var navController: NavController
+    // Здесь также объявляется переменная navController, которая представляет контроллер навигации,
+    // с помощью которого будет управляться переход между фрагментами.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

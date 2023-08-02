@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.template.lovecompatibilitykg.R
 import com.template.lovecompatibilitykg.databinding.FragmentEnterBinding
 import com.template.lovecompatibilitykg.mvvm.LoveViewModel
+import com.template.lovecompatibilitykg.room.LoveDao
 import com.template.lovecompatibilitykg.sharedPreferences.utils.Preferences
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -19,6 +20,9 @@ import javax.inject.Inject
 class EnterFragment : Fragment() {
     @Inject
     lateinit var preferences: Preferences
+
+    @Inject
+    lateinit var loveDao: LoveDao
     private var _binding: FragmentEnterBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LoveViewModel by viewModels()
@@ -40,9 +44,12 @@ class EnterFragment : Fragment() {
 
     private fun initializeClicker() {
         with(binding) {
+            history.setOnClickListener {
+                findNavController().navigate(R.id.historyActivity)
+            }
             button.setOnClickListener {
                 viewModel.getLiveData(editTextFname.text.toString(), editTextSname.text.toString())
-                    .observe(this@EnterFragment) { loveModel ->
+                    .observe(viewLifecycleOwner) { loveModel ->
                         findNavController().navigate(
                             R.id.resultFragment, bundleOf(KEY to loveModel)
                         )
@@ -60,7 +67,3 @@ class EnterFragment : Fragment() {
         const val KEY = "LoveModel"
     }
 }
-
-
-
-
