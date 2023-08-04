@@ -13,6 +13,6 @@ interface LoveDao {
     @Insert
     fun insert(loveModel: LoveModel)
 
-    @Query("SELECT * FROM loveModel")
+    @Query("SELECT * FROM loveModel ORDER BY firstName ASC")
     fun getAllData(): List<LoveModel>
 }

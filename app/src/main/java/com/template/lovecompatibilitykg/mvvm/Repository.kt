@@ -19,7 +19,10 @@ class Repository @Inject constructor(private val loveApi: LoveApi, private val l
 
     // У него есть конструктор, который принимает объект LoveApi в качестве параметра.
     // LoveApi - это интерфейс Retrofit, используемый для выполнения вызовов API.
-    fun getAllInformation() = loveDao.getAllData()
+    fun getAllInformation(): List<LoveModel> {
+        val unsortedData = loveDao.getAllData()
+        return unsortedData.sortedBy { it.firstName }
+    }
     fun getPercentage(firstName: String, secondName: String): MutableLiveData<LoveModel> {
         // Эта функция getPercentage принимает два параметра firstName и secondName,
         // которые представляют имена двух людей, для которых нужно проверить совместимость в любви.
